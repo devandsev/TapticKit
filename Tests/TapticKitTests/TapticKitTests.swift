@@ -8,16 +8,13 @@
 
 import Foundation
 import XCTest
-import TapticKit
+@testable import TapticKit
 
 class TapticKitTests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        //// XCTAssertEqual(TapticKit().text, "Hello, World!")
-    }
     
-    static var allTests = [
-        ("testExample", testExample),
-    ]
+    func testSupportLevel() {
+        let supportLevel = TapticKit.supportLevel
+        
+        XCTAssertTrue(supportLevel == .none)
+    }
 }

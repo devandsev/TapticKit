@@ -38,12 +38,36 @@ class TapticKit {
     static var preparedGenerator: AnyObject?
     static var preparedFeedbackType: Feedback?
     
-    // TODO: Retrieve support level based on hardware platfrom and iOS version
     static public var supportLevel: SupportLevel = {
-        if #available(iOS 10.0, *) {
-            return .haptic
-        } else {
+        
+        var info = utsname()
+        uname(&info)
+        guard let deviceCode = String(bytes: Data(bytes: &info.machine, count: Int(_SYS_NAMELEN)), encoding: .ascii)?.trimmingCharacters(in: .controlCharacters) else {
+            return .none
+        }
+        
+        switch deviceCode {
+            
+        // Old devices
+        case "iPhone4,1", "iPhone5,1", "iPhone5,2", "iPhone5,3", "iPhone5,4",
+             "iPhone6,1", "iPhone6,2", "iPhone7,1", "iPhone7,2":
+            return .none
+            
+        // iPhone SE
+        case "iPhone8,3", "iPhone8,4":
+            return .none
+            
+        // iPhone 6S / 6s Plus
+        case "iPhone8,1", "iPhone8,2":
             return .simple
+            
+        default:
+            // Assuming all future iPhones will have haptic feedback capability
+            if deviceCode.lowercased().contains("iphone") {
+                return .haptic
+            } else {
+                return .none
+            }
         }
     }()
     
