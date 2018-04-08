@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioToolbox.AudioServices
 
 public enum Feedback {
     
@@ -91,6 +92,7 @@ class TapticKit {
             case .impact(let style):
                 
                 switch style {
+                    
                 case .light:
                     g = UIImpactFeedbackGenerator(style: .light)
                     
@@ -120,7 +122,6 @@ class TapticKit {
         case .simple:
             triggerSimple(feedback)
             
-        // TODO: Use vibration
         case .none:
             break
         }
@@ -187,8 +188,43 @@ class TapticKit {
         }
     }
     
-    // TODO: Implement
     static func triggerSimple(_ feedback: Feedback) {
+        
+        let sound: SystemSoundID
+        
+        switch feedback {
+            
+        case .notification(let style):
+            switch style {
+                
+            case .error:
+                sound = 1521
+                
+            case .success:
+                sound = 1102
+                
+            case .warning:
+                sound = 1102
+            }
+            
+        case .selection:
+            sound = 1519
+            
+        case .impact(let style):
+            switch style {
+                
+            case .light:
+                sound = 1519
+                
+            case .medium:
+                sound = 1519
+                
+            case .heavy:
+                sound = 1520
+            }
+        }
+        
+        AudioServicesPlaySystemSound(sound)
     }
     
     static public func release() {
