@@ -34,7 +34,8 @@ public enum SupportLevel {
     case haptic
 }
 
-class TapticKit {
+// There's no reason to instantiate TapticKit, using enum instead of a class
+public enum TapticKit {
     
     static var preparedGenerator: AnyObject?
     static var preparedFeedbackType: Feedback?
