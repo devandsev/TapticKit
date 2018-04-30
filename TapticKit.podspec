@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version      = "0.1.0"
   s.summary      = "Make use of Taptic engine for haptic feedback"
   s.description  = <<-DESC
-    Your description here.
+    TapticKit makes it easier to use Taptic engine for haptic feedback. Supports all generations of Taptic engine. If the device doesn't support haptic feedback, TapticKit falls back on using simpler
   DESC
   s.homepage     = "https://github.com/devandsev/TapticKit"
   s.license      = { :type => "MIT", :file => "LICENSE" }
